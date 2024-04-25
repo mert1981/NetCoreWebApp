@@ -16,5 +16,10 @@ namespace NetCoreWebApp.Controllers
             List<KitapTuru> objKitapTuruList = _uygulamaDbContext.KitapTurleri.ToList();
             return View(objKitapTuruList);
         }
+
+        public IActionResult Ekle()
+        {
+            return View();
+        }
     }
 }
