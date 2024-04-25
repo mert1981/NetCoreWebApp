@@ -1,1 +1,23 @@
-﻿<h1>Kitap Türü Sayfası</h1>
+﻿@model List<KitapTuru> 
+
+<h1>Kitap Türleri</h1>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Kitap Türü</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var kitapturu in Model)
+        {
+            <tr>
+                <td>@kitapturu.Id</td>
+                <td>@kitapturu.Ad</td>
+            </tr>
+        }
+        
+    </tbody>
+</table>
