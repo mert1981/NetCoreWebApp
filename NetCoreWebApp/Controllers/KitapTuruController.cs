@@ -26,9 +26,14 @@ namespace NetCoreWebApp.Controllers
         [HttpPost]
         public IActionResult Ekle(KitapTuru kitapTuru)
         {
-            _uygulamaDbContext.KitapTurleri.Add(kitapTuru);
-            _uygulamaDbContext.SaveChanges();  //Save Changes yazmazsak bilgileri eklemez. 
-            return RedirectToAction("Index","KitapTuru"); //yazdıktan sonra bizi listeye atsın.
+            if (ModelState.IsValid)  //modelde belirlediğimiz hatalar var mı kontrol ediyor.
+            {
+                _uygulamaDbContext.KitapTurleri.Add(kitapTuru);
+                _uygulamaDbContext.SaveChanges();  //Save Changes yazmazsak bilgileri eklemez. 
+                return RedirectToAction("Index", "KitapTuru"); //yazdıktan sonra bizi listeye atsın.
+            }
+            return View(); // Eğer modelde istenmeyen bir durum olursa viewe at
+            
         }
     }
 }
