@@ -30,6 +30,7 @@ namespace NetCoreWebApp.Controllers
             {
                 _uygulamaDbContext.KitapTurleri.Add(kitapTuru);
                 _uygulamaDbContext.SaveChanges();  //Save Changes yazmazsak bilgileri eklemez. 
+                TempData["basarili"] = "Kitap Başarıyla Eklendi";
                 return RedirectToAction("Index", "KitapTuru"); //yazdıktan sonra bizi listeye atsın.
             }
             return View(); // Eğer modelde istenmeyen bir durum olursa viewe at
@@ -55,6 +56,7 @@ namespace NetCoreWebApp.Controllers
             {
                 _uygulamaDbContext.KitapTurleri.Update(kitapTuru);
                 _uygulamaDbContext.SaveChanges();  //Save Changes yazmazsak bilgileri eklemez. 
+                TempData["basarili"] = "Kitap Başarıyla Güncellendi!";
                 return RedirectToAction("Index", "KitapTuru"); //yazdıktan sonra bizi listeye atsın.
             }
             return View(); // Eğer modelde istenmeyen bir durum olursa viewe at
@@ -81,6 +83,7 @@ namespace NetCoreWebApp.Controllers
                 return NotFound();
             _uygulamaDbContext.KitapTurleri.Remove(kitapTuru);
             _uygulamaDbContext.SaveChanges();
+            TempData["basarili"] = "Kitap Başarıyla Silindi!";
             return RedirectToAction("Index", "KitapTuru");
         }
 
