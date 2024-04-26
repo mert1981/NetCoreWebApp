@@ -7,14 +7,14 @@ namespace NetCoreWebApp.Controllers
 {
     public class KitapTuruController : Controller
     {
-        private readonly UygulamaDbContext _uygulamaDbContext;
-        public KitapTuruController(UygulamaDbContext context)
+        private readonly IKitapTuruRepository _kitapTuruRepository;
+        public KitapTuruController(IKitapTuruRepository context)
         {
-            _uygulamaDbContext = context;
+            _kitapTuruRepository = context;
         }
         public IActionResult Index()
         {
-            List<KitapTuru> objKitapTuruList = _uygulamaDbContext.KitapTurleri.ToList();
+            List<KitapTuru> objKitapTuruList = _kitapTuruRepository.GetAll().ToList();
             return View(objKitapTuruList);
         }
 
@@ -28,8 +28,8 @@ namespace NetCoreWebApp.Controllers
         {
             if (ModelState.IsValid)  //modelde belirlediğimiz hatalar var mı kontrol ediyor.
             {
-                _uygulamaDbContext.KitapTurleri.Add(kitapTuru);
-                _uygulamaDbContext.SaveChanges();  //Save Changes yazmazsak bilgileri eklemez. 
+                _kitapTuruRepository.Ekle(kitapTuru);
+                _kitapTuruRepository.Kaydet();  //Save Changes yazmazsak bilgileri eklemez. 
                 TempData["basarili"] = "Kitap Başarıyla Eklendi";
                 return RedirectToAction("Index", "KitapTuru"); //yazdıktan sonra bizi listeye atsın.
             }
@@ -40,8 +40,8 @@ namespace NetCoreWebApp.Controllers
         public IActionResult Guncelle(int? id)
         {
             if(id == null || id==0 )
-                return NotFound(); 
-            KitapTuru? kitapTuruVt = _uygulamaDbContext.KitapTurleri.Find(id);
+                return NotFound();
+            KitapTuru? kitapTuruVt = _kitapTuruRepository.Get(x=>x.Id==id); //Gönderdiğimiz id'ye eşit olan kaydı getir.
             if (kitapTuruVt == null)
             {
                 return NotFound();
@@ -54,8 +54,8 @@ namespace NetCoreWebApp.Controllers
         {
             if (ModelState.IsValid)  //modelde belirlediğimiz hatalar var mı kontrol ediyor.
             {
-                _uygulamaDbContext.KitapTurleri.Update(kitapTuru);
-                _uygulamaDbContext.SaveChanges();  //Save Changes yazmazsak bilgileri eklemez. 
+                _kitapTuruRepository.Guncelle(kitapTuru);
+                _kitapTuruRepository.Kaydet();  //Save Changes yazmazsak bilgileri eklemez. 
                 TempData["basarili"] = "Kitap Başarıyla Güncellendi!";
                 return RedirectToAction("Index", "KitapTuru"); //yazdıktan sonra bizi listeye atsın.
             }
@@ -67,7 +67,7 @@ namespace NetCoreWebApp.Controllers
         {
             if (id == null || id == 0)
                 return NotFound();
-            KitapTuru? kitapTuruVt = _uygulamaDbContext.KitapTurleri.Find(id);
+            KitapTuru? kitapTuruVt = _kitapTuruRepository.Get(x => x.Id == id);
             if (kitapTuruVt == null)
             {
                 return NotFound();
@@ -78,11 +78,11 @@ namespace NetCoreWebApp.Controllers
         [HttpPost,ActionName("Sil")]
         public IActionResult SilPOST(int? id)
         {
-            KitapTuru? kitapTuru = _uygulamaDbContext.KitapTurleri.Find(id);
-            if(kitapTuru == null)
+            KitapTuru? kitapTuru = _kitapTuruRepository.Get(x => x.Id == id);
+            if (kitapTuru == null)
                 return NotFound();
-            _uygulamaDbContext.KitapTurleri.Remove(kitapTuru);
-            _uygulamaDbContext.SaveChanges();
+            _kitapTuruRepository.Sil(kitapTuru);
+            _kitapTuruRepository.Kaydet();
             TempData["basarili"] = "Kitap Başarıyla Silindi!";
             return RedirectToAction("Index", "KitapTuru");
         }

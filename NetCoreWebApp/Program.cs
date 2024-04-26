@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using NetCoreWebApp.Models;
 using NetCoreWebApp.Utility;
 
 
@@ -9,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<UygulamaDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>(); // _kitapTuruRepository nesnesi => Dependency injection
 
 var app = builder.Build();
 
