@@ -11,8 +11,8 @@ using NetCoreWebApp.Utility;
 namespace NetCoreWebApp.Migrations
 {
     [DbContext(typeof(UygulamaDbContext))]
-    [Migration("20240426173539_KitaplarTablosuOlusturuldu")]
-    partial class KitaplarTablosuOlusturuldu
+    [Migration("20240428153801_reinstall")]
+    partial class reinstall
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -39,6 +39,9 @@ namespace NetCoreWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("KitapTuruId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Tanim")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -48,6 +51,8 @@ namespace NetCoreWebApp.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("KitapTuruId");
 
                     b.ToTable("Kitaplar");
                 });
@@ -68,6 +73,17 @@ namespace NetCoreWebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("KitapTurleri");
+                });
+
+            modelBuilder.Entity("NetCoreWebApp.Models.Kitap", b =>
+                {
+                    b.HasOne("NetCoreWebApp.Models.KitapTuru", "KitapTuru")
+                        .WithMany()
+                        .HasForeignKey("KitapTuruId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("KitapTuru");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using NetCoreWebApp.Models;
 using NetCoreWebApp.Utility;
@@ -8,18 +9,28 @@ namespace NetCoreWebApp.Controllers
     public class KitapController : Controller
     {
         private readonly IKitapRepository _kitapRepository;
-        public KitapController(IKitapRepository context)
+        private readonly IKitapTuruRepository _kitapTuruRepository;
+        public KitapController(IKitapRepository context, IKitapTuruRepository kitapTuruRepository)
         {
             _kitapRepository = context;
+            _kitapTuruRepository = kitapTuruRepository;
         }
         public IActionResult Index()
         {
             List<Kitap> objKitapTuruList = _kitapRepository.GetAll().ToList();
+            
             return View(objKitapTuruList);
         }
 
         public IActionResult Ekle()
         {
+            //Tüm Kitap Türlerini çekerek combo boxa atıyoruz
+            IEnumerable<SelectListItem> KitapTuruList = _kitapTuruRepository.GetAll().Select(x => new SelectListItem
+            { 
+                Text = x.Ad,
+                Value = x.Id.ToString()
+            });
+            ViewBag.KitapTuruList = KitapTuruList; //Controllerden View'e veri taşıma
             return View();
         }
 
