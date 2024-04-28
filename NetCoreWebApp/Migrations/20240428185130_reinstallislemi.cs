@@ -5,7 +5,7 @@
 namespace NetCoreWebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class reinstall : Migration
+    public partial class reinstallislemi : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,7 +33,8 @@ namespace NetCoreWebApp.Migrations
                     Tanim = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Yazar = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Fiyat = table.Column<double>(type: "float", nullable: false),
-                    KitapTuruId = table.Column<int>(type: "int", nullable: false)
+                    KitapTuruId = table.Column<int>(type: "int", nullable: false),
+                    ResimUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {

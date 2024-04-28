@@ -11,8 +11,8 @@ using NetCoreWebApp.Utility;
 namespace NetCoreWebApp.Migrations
 {
     [DbContext(typeof(UygulamaDbContext))]
-    [Migration("20240428153801_reinstall")]
-    partial class reinstall
+    [Migration("20240428185130_reinstallislemi")]
+    partial class reinstallislemi
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -41,6 +41,10 @@ namespace NetCoreWebApp.Migrations
 
                     b.Property<int>("KitapTuruId")
                         .HasColumnType("int");
+
+                    b.Property<string>("ResimUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Tanim")
                         .IsRequired()

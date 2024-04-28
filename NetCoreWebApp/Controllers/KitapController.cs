@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using NetCoreWebApp.Models;
@@ -10,10 +11,13 @@ namespace NetCoreWebApp.Controllers
     {
         private readonly IKitapRepository _kitapRepository;
         private readonly IKitapTuruRepository _kitapTuruRepository;
-        public KitapController(IKitapRepository context, IKitapTuruRepository kitapTuruRepository)
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
+        public KitapController(IKitapRepository context, IKitapTuruRepository kitapTuruRepository, IWebHostEnvironment webHostEnvironment)
         {
             _kitapRepository = context;
             _kitapTuruRepository = kitapTuruRepository;
+            _webHostEnvironment = webHostEnvironment;
         }
         public IActionResult Index()
         {
@@ -54,6 +58,14 @@ namespace NetCoreWebApp.Controllers
         {
             if (ModelState.IsValid)  //modelde belirlediğimiz hatalar var mı kontrol ediyor.
             {
+                string wwwRootPath = _webHostEnvironment.WebRootPath; //WWWroot 'un bulunduğu dizini verir.
+                string kitapPath = Path.Combine(wwwRootPath, @"img"); // wwwroot/img 
+                using (var fileStream = new FileStream(Path.Combine(kitapPath, file.FileName), FileMode.Create))
+                {
+                    file.CopyTo(fileStream);
+                }
+                kitap.ResimUrl = @"\img\" + file.FileName;
+
                 _kitapRepository.Ekle(kitap);
                 _kitapRepository.Kaydet();  //Save Changes yazmazsak bilgileri eklemez. 
                 TempData["basarili"] = "Kitap Başarıyla Eklendi";
