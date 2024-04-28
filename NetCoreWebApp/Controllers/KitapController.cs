@@ -22,7 +22,7 @@ namespace NetCoreWebApp.Controllers
             return View(objKitapTuruList);
         }
 
-        public IActionResult Ekle()
+        public IActionResult EkleGuncelle(int? id)
         {
             //Tüm Kitap Türlerini çekerek combo boxa atıyoruz
             IEnumerable<SelectListItem> KitapTuruList = _kitapTuruRepository.GetAll().Select(x => new SelectListItem
@@ -31,11 +31,26 @@ namespace NetCoreWebApp.Controllers
                 Value = x.Id.ToString()
             });
             ViewBag.KitapTuruList = KitapTuruList; //Controllerden View'e veri taşıma
-            return View();
+            if (id==null || id==0)
+            {
+                //Ekle
+                return View();
+            }
+            else
+            {
+                //Guncelle
+                Kitap? kitapVt = _kitapRepository.Get(x => x.Id == id); //Gönderdiğimiz id'ye eşit olan kaydı getir.
+                if (kitapVt == null)
+                {
+                    return NotFound();
+                }
+                return View(kitapVt);
+            }
+            
         }
 
         [HttpPost]
-        public IActionResult Ekle(Kitap kitap)
+        public IActionResult EkleGuncelle(Kitap kitap,IFormFile? file) //IFormFile hazır bir sınıf dosyayı döndürüyor.
         {
             if (ModelState.IsValid)  //modelde belirlediğimiz hatalar var mı kontrol ediyor.
             {
@@ -47,7 +62,7 @@ namespace NetCoreWebApp.Controllers
             return View(); // Eğer modelde istenmeyen bir durum olursa viewe at
         }
 
-
+        /*
         public IActionResult Guncelle(int? id)
         {
             if(id == null || id==0 )
@@ -59,7 +74,9 @@ namespace NetCoreWebApp.Controllers
             }
             return View(kitapVt);
         }
+        */
 
+        /*
         [HttpPost]
         public IActionResult Guncelle(Kitap kitap)
         {
@@ -72,6 +89,7 @@ namespace NetCoreWebApp.Controllers
             }
             return View(); // Eğer modelde istenmeyen bir durum olursa viewe at
         }
+        */
 
 
         public IActionResult Sil(int? id)

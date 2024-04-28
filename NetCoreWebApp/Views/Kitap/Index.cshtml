@@ -38,7 +38,7 @@
                         <td>@kitap.Yazar</td>
                         <td>@kitap.Fiyat</td>
                         <td>
-                            <a asp-controller="Kitap" asp-action="Guncelle" asp-route-id="@kitap.Id" type="button" class="btn btn-success" style="width:200px" >Güncelle</a>
+                            <a asp-controller="Kitap" asp-action="EkleGuncelle" asp-route-id="@kitap.Id" type="button" class="btn btn-success" style="width:200px" >Güncelle</a>
                         </td>
                         <td>
                             <a asp-controller="Kitap" asp-action="Sil" asp-route-id="@kitap.Id" type="button" class="btn btn-danger" style="width:200px">Sil</a>
@@ -51,7 +51,7 @@
 
         <div class="row pt-3 pb-2">
             <div>
-                <a asp-controller="Kitap" asp-action="Ekle" class="btn btn-lg btn-primary" type="button">Kitap Ekle 
+                <a asp-controller="Kitap" asp-action="EkleGuncelle" class="btn btn-lg btn-primary" type="button">Kitap Ekle 
 
                 </a>
             </div>
