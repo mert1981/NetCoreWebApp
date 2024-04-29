@@ -60,15 +60,31 @@ namespace NetCoreWebApp.Controllers
             {
                 string wwwRootPath = _webHostEnvironment.WebRootPath; //WWWroot 'un bulunduğu dizini verir.
                 string kitapPath = Path.Combine(wwwRootPath, @"img"); // wwwroot/img 
-                using (var fileStream = new FileStream(Path.Combine(kitapPath, file.FileName), FileMode.Create))
-                {
-                    file.CopyTo(fileStream);
-                }
-                kitap.ResimUrl = @"\img\" + file.FileName;
 
-                _kitapRepository.Ekle(kitap);
+                if (file != null) { //Guncelle yaptığımızda resmi güncellemek istemiyorsak null olarak geliyor. Null kontrol yapıyoruz.,
+                    //EkleGuncelle viewda ise  <input asp-for="ResimUrl" hidden /> yazarak resimurl dolu olarak gidiyor.
+
+
+                    using (var fileStream = new FileStream(Path.Combine(kitapPath, file.FileName), FileMode.Create))
+                    {
+                        file.CopyTo(fileStream);
+                    }
+                    kitap.ResimUrl = @"\img\" + file.FileName;
+                }
+                
+
+                if (kitap.Id == 0)
+                {
+                    _kitapRepository.Ekle(kitap);
+                    TempData["basarili"] = "Kitap Başarıyla Eklendi";
+                }
+                else
+                {
+                    _kitapRepository.Guncelle(kitap);
+                    TempData["basarili"] = "Kitap Başarıyla Guncellendi";
+                }
+                
                 _kitapRepository.Kaydet();  //Save Changes yazmazsak bilgileri eklemez. 
-                TempData["basarili"] = "Kitap Başarıyla Eklendi";
                 return RedirectToAction("Index", "Kitap"); //yazdıktan sonra bizi listeye atsın.
             }
             return View(); // Eğer modelde istenmeyen bir durum olursa viewe at
