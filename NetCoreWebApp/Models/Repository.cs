@@ -15,6 +15,7 @@ namespace NetCoreWebApp.Models
         {
             _uygulamaDbContext = uygulamaDbContext;
             this.dbSet = _uygulamaDbContext.Set<T>(); // dbSet =  _uygulamaDbContext.KitapTürleri
+            //ForeginKey Kitap -> KitapTürü
             _uygulamaDbContext.Kitaplar.Include(k => k.KitapTuru).Include(k=>k.KitapTuruId);
         } 
         public void Ekle(T entity)
@@ -26,6 +27,7 @@ namespace NetCoreWebApp.Models
         {
             IQueryable<T> sorgu = dbSet;
             sorgu = sorgu.Where(filtre);
+            //ForeingnKey
             if (!string.IsNullOrEmpty(includeProps))
             {
                 foreach (var includeProp in includeProps.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))

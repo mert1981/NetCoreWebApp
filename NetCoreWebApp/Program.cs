@@ -13,6 +13,8 @@ builder.Services.AddDbContext<UygulamaDbContext>(options=>options.UseSqlServer(b
 
 builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>(); // _kitapTuruRepository nesnesi => Dependency injection
 builder.Services.AddScoped<IKitapRepository, KitapRepository>();
+builder.Services.AddScoped<IKiralamaRepository, KiralamaRepository>();
+
 
 var app = builder.Build();
 
