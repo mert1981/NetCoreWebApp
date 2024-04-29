@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using NetCoreWebApp.Models;
 
 namespace NetCoreWebApp.Utility
 {
-    public class UygulamaDbContext : DbContext
+    public class UygulamaDbContext : IdentityDbContext
     {
         public UygulamaDbContext(DbContextOptions<UygulamaDbContext> options) : base(options) { }
 

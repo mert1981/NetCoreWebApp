@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using NetCoreWebApp.Models;
 using NetCoreWebApp.Utility;
+using Microsoft.AspNetCore.Identity;
 
 
 
@@ -10,6 +11,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<UygulamaDbContext>(options=>options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<UygulamaDbContext>();
 
 builder.Services.AddScoped<IKitapTuruRepository, KitapTuruRepository>(); // _kitapTuruRepository nesnesi => Dependency injection
 builder.Services.AddScoped<IKitapRepository, KitapRepository>();
