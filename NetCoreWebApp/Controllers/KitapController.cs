@@ -21,7 +21,7 @@ namespace NetCoreWebApp.Controllers
         }
         public IActionResult Index()
         {
-            List<Kitap> objKitapTuruList = _kitapRepository.GetAll().ToList();
+            List<Kitap> objKitapTuruList = _kitapRepository.GetAll(includeProps:"KitapTuru").ToList();
             
             return View(objKitapTuruList);
         }
