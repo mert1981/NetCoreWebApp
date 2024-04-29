@@ -109,6 +109,14 @@ namespace NetCoreWebApp.Controllers
 
         public IActionResult Sil(int? id)
         {
+            IEnumerable<SelectListItem> KitapList = _kitapRepository.GetAll().Select(x => new SelectListItem
+            {
+                Text = x.KitapAdi,
+                Value = x.Id.ToString()
+            });
+            ViewBag.KitapList = KitapList; //Controllerden View'e veri taşıma
+
+
             if (id == null || id == 0)
                 return NotFound();
             Kiralama? kiralamaVt = _kiralamaRepository.Get(x => x.Id == id);
