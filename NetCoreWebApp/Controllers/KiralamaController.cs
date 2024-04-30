@@ -8,7 +8,7 @@ using NetCoreWebApp.Utility;
 
 namespace NetCoreWebApp.Controllers
 {
-    
+    [Authorize(Roles = UserRoles.Role_Admin)]
     public class KiralamaController : Controller
     {
 
