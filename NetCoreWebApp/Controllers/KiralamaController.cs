@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -7,8 +8,10 @@ using NetCoreWebApp.Utility;
 
 namespace NetCoreWebApp.Controllers
 {
+    [Authorize(Roles = UserRoles.Role_Admin)]
     public class KiralamaController : Controller
     {
+
         private readonly IKitapRepository _kitapRepository;
         private readonly IKiralamaRepository _kiralamaRepository;
         private readonly IWebHostEnvironment _webHostEnvironment;
