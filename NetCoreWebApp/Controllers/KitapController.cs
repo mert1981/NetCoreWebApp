@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -7,6 +8,7 @@ using NetCoreWebApp.Utility;
 
 namespace NetCoreWebApp.Controllers
 {
+    
     public class KitapController : Controller
     {
         private readonly IKitapRepository _kitapRepository;

@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using NetCoreWebApp.Models;
 using NetCoreWebApp.Utility;
 
 namespace NetCoreWebApp.Controllers
 {
+  
     public class KitapTuruController : Controller
     {
         private readonly IKitapTuruRepository _kitapTuruRepository;
