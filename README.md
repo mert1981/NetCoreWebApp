@@ -26,3 +26,32 @@ Bu proje, Adminin kitap, kitap türü ve kitap kiralama özelliklerini barındı
 ![Proje Hakkında](ReadmeImages/7.png)
 ![Proje Hakkında](ReadmeImages/8.png)
 ![Proje Hakkında](ReadmeImages/9.png)
+
+### Kurulum
+Projeleri çalıştırmadan önce .NET Core SDK ve SQL Server'ın kurulu olması gerekmektedir.
+
+
+```bash
+git clone https://github.com/mert1981/NetCoreWebApp.git
+cd NetCoreWebApp
+dotnet restore
+dotnet run
+```
+
+### Katkıda Bulunma
+
+Projelere katkıda bulunmak isteyenler, ilgili repository'yi forkladıktan sonra pull request gönderebilirler. Katkıda bulunmak isteyenler için: 
+
+
+
+```bash
+git checkout -b ozellik/YeniOzellik
+git commit -m 'Yeni özellik eklendi'
+git push 
+```
+
+### İletişim
+
+- E-posta: mertkoc1981@gmail.com
+- LinkedIn: [mertkoc](https://www.linkedin.com/in/mert-ko%C3%A7-a477a0200/)
+- GitHub: [mertkoc](https://github.com/mert1981)
