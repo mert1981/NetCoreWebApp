@@ -8,7 +8,7 @@ using NetCoreWebApp.Utility;
 
 namespace NetCoreWebApp.Controllers
 {
-    [Authorize(Roles = UserRoles.Role_Admin)]
+    
     public class KitapController : Controller
     {
         private readonly IKitapRepository _kitapRepository;
@@ -21,6 +21,7 @@ namespace NetCoreWebApp.Controllers
             _kitapTuruRepository = kitapTuruRepository;
             _webHostEnvironment = webHostEnvironment;
         }
+        [Authorize(Roles = "Admin,Ogrenci")]
         public IActionResult Index()
         {
             List<Kitap> objKitapTuruList = _kitapRepository.GetAll(includeProps:"KitapTuru").ToList();
@@ -28,6 +29,7 @@ namespace NetCoreWebApp.Controllers
             return View(objKitapTuruList);
         }
 
+        [Authorize(Roles = UserRoles.Role_Admin)]
         public IActionResult EkleGuncelle(int? id)
         {
             //Tüm Kitap Türlerini çekerek combo boxa atıyoruz
@@ -56,6 +58,7 @@ namespace NetCoreWebApp.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = UserRoles.Role_Admin)]
         public IActionResult EkleGuncelle(Kitap kitap,IFormFile? file) //IFormFile hazır bir sınıf dosyayı döndürüyor.
         {
             if (ModelState.IsValid)  //modelde belirlediğimiz hatalar var mı kontrol ediyor.
@@ -121,7 +124,7 @@ namespace NetCoreWebApp.Controllers
         }
         */
 
-
+        [Authorize(Roles = UserRoles.Role_Admin)]
         public IActionResult Sil(int? id)
         {
             if (id == null || id == 0)
@@ -135,6 +138,7 @@ namespace NetCoreWebApp.Controllers
         }
 
         [HttpPost,ActionName("Sil")]
+        [Authorize(Roles = UserRoles.Role_Admin)]
         public IActionResult SilPOST(int? id)
         {
             Kitap? kitap = _kitapRepository.Get(x => x.Id == id);
